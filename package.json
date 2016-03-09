@@ -4,7 +4,7 @@
   "description": "A node js social api plugin",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
@@ -16,10 +16,14 @@
     "instagram",
     "twitter"
   ],
-  "author": "Christopher Weir",
-  "license": "ISC",
+  "author": "Christopher Weir <hello@illuns.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/christopher-weir/nocial/issues"
   },
-  "homepage": "https://github.com/christopher-weir/nocial#readme"
+  "homepage": "https://github.com/christopher-weir/nocial#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
 }
