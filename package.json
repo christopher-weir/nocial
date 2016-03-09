@@ -1,0 +1,25 @@
+{
+  "name": "nocial",
+  "version": "0.0.1",
+  "description": "A node js social api plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://christopher-weir@github.com/christopher-weir/nocial.git"
+  },
+  "keywords": [
+    "node",
+    "social",
+    "instagram",
+    "twitter"
+  ],
+  "author": "Christopher Weir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christopher-weir/nocial/issues"
+  },
+  "homepage": "https://github.com/christopher-weir/nocial#readme"
+}
