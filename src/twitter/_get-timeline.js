@@ -45,9 +45,9 @@ module.exports = function( type, params, accessToken, accessTokenSecret ) {
                     _reject(error);
                 } else {
                     try {
-                        _resolve(null, JSON.parse(data));
+                        _resolve(JSON.parse(data));
                     } catch (e) {
-                        _resolve(e, data, response);
+                        _reject(e);
                     }
                 }
             }
