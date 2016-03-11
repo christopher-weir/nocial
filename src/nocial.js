@@ -32,8 +32,6 @@ var Nocial = function() {
 
     this.options = defaultOptions;
 
-    this.twitterOAuth = null;
-
     this.init = function(_opts) {
 
         // set the options
@@ -58,6 +56,37 @@ var Nocial = function() {
         );
     };
 
+    this.twitter.getStream = function(type, params, accessToken, accessTokenSecret, dataCallback) {
+
+        var options = {
+            type: type,
+            params: params,
+            accessToken: accessToken,
+            accessTokenSecret: accessTokenSecret,
+            dataCallback: dataCallback
+        };
+
+        return twitter.getTimeline(
+            self.options,
+            options
+        );
+    };
+
+    this.twitter.statuses = function(type, params, accessToken, accessTokenSecret) {
+
+        var options = {
+            type: type,
+            params: params,
+            accessToken: accessToken,
+            accessTokenSecret: accessTokenSecret
+        };
+
+        return twitter.statuses(
+            self.options,
+            options
+        );
+    };
+
 };
 
 
@@ -65,5 +94,4 @@ var Nocial = function() {
 defaultInstance = new Nocial();
 exports.init = defaultInstance.init;
 exports.options = defaultInstance.options;
-exports.twitterOAuth = defaultInstance.twitterOAuth;
 exports.twitter = defaultInstance.twitter;

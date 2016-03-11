@@ -1,41 +1,41 @@
 'use strict';
 
-var nocial = require('../nocial.js');
+var oauth = require('./_oauth.js');
 var querystring = require('querystring');
 
-module.exports = function(type, params, accessToken, accessTokenSecret) {
+module.exports = function( nocial, options ) {
 
     return new Promise(function(_resolve, _reject) {
-        type = type.toLowerCase();
 
+        var type = options.type.toLowerCase();
         var url = '';
         var errorMessage = '';
         var method = 'GET';
 
         switch (type) {
             case 'retweets':
-                url = 'retweets/' + params.id;
-                delete params.id;
+                url = 'retweets/' + options.params.id;
+                delete options.params.id;
                 break;
             case 'show':
-                url = 'show/' + params.id;
-                delete params.id;
+                url = 'show/' + options.params.id;
+                delete options.params.id;
                 break;
             case 'lookup':
                 url = 'lookup';
                 method = 'POST';
                 break;
             case 'destroy':
-                url = 'destroy/' + params.id;
-                delete params.id;
+                url = 'destroy/' + options.params.id;
+                delete options.params.id;
                 method = 'POST';
                 break;
             case 'update':
                 method = 'POST';
                 break;
             case 'retweet':
-                url = 'retweet/' + params.id;
-                delete params.id;
+                url = 'retweet/' + options.params.id;
+                delete options.params.id;
                 method = 'POST';
                 break;
             case 'oembed':

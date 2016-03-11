@@ -7,8 +7,8 @@ var oauth = require('./_oauth.js');
 module.exports = function( nocial, options ) {
 
     return new Promise(function(_resolve, _reject) {
-        var type = options.type.toLowerCase();
 
+        var type = options.type.toLowerCase();
         var url = '';
         var errorMessage = '';
 
