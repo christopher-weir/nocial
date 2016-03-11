@@ -1,7 +1,5 @@
 'use strict';
 
-var oauth = require('oauth');
-
 var utils = require('./utils');
 var twitter = require('./twitter/twitter.js');
 
@@ -41,24 +39,24 @@ var Nocial = function() {
         // set the options
         self.options = utils.helpers.extend(defaultOptions, _opts || {});
 
-        // if there is a twitter key and secret
-        // create the twitter OAuth
-        if (self.options.twitter.key && self.options.twitter.secret) {
-
-            self.twitterOAuth = new oauth.OAuth(
-                'https://twitter.com/oauth/request_token',
-                'https://twitter.com/oauth/access_token',
-                self.options.twitter.key,
-                self.options.twitter.secret,
-                '1.0A',
-                null,
-                'HMAC-SHA1'
-            );
-
-        }
     };
 
-    this.twitter = twitter;
+    this.twitter = {};
+
+    this.twitter.getTimeline = function(type, params, accessToken, accessTokenSecret) {
+
+        var options = {
+            type: type,
+            params: params,
+            accessToken: accessToken,
+            accessTokenSecret: accessTokenSecret
+        };
+
+        return twitter.getTimeline(
+            self.options,
+            options
+        );
+    };
 
 };
 

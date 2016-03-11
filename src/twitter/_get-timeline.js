@@ -1,14 +1,15 @@
 'use strict';
 
-var nocial = require('../nocial.js');
 var querystring = require('querystring');
 
-module.exports = function(type, params, accessToken, accessTokenSecret) {
+var oauth = require('./_oauth.js');
+
+module.exports = function( nocial, options ) {
 
     return new Promise(function(_resolve, _reject) {
-        type = type.toLowerCase();
+        var type = options.type.toLowerCase();
 
-        var url = null;
+        var url = '';
         var errorMessage = '';
 
         switch (type) {
@@ -22,7 +23,7 @@ module.exports = function(type, params, accessToken, accessTokenSecret) {
                 break;
             case 'user_timeline':
             case 'user':
-                if (!params.user_id && !params.screen_name) {
+                if (!options.params.user_id && !options.params.screen_name) {
 
                     errorMessage = 'Always specify either an user_id or screen_name when requesting a user timeline.';
                     _reject({
@@ -47,10 +48,10 @@ module.exports = function(type, params, accessToken, accessTokenSecret) {
                 return false;
         }
 
-        nocial.twitterOAuth.get(
-            nocial.options.twitter.baseUrl + 'statuses/' + url + '.json?' + querystring.stringify(params),
-            accessToken,
-            accessTokenSecret,
+        oauth( nocial ).get(
+            nocial.twitter.baseUrl + 'statuses/' + url + '.json?' + querystring.stringify(options.params),
+            options.accessToken,
+            options.accessTokenSecret,
             function(error, data, response) {
                 if (error) {
                     errorMessage = 'There was an error';
