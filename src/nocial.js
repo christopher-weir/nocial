@@ -38,57 +38,73 @@ var Nocial = function() {
         self.options = utils.helpers.extend(defaultOptions, _opts || {});
 
     };
-
-    this.twitter = {};
-
-    this.twitter.getTimeline = function(type, params, accessToken, accessTokenSecret) {
-
-        var options = {
-            type: type,
-            params: params,
-            accessToken: accessToken,
-            accessTokenSecret: accessTokenSecret
-        };
-
-        return twitter.getTimeline(
-            self.options,
-            options
-        );
-    };
-
-    this.twitter.getStream = function(type, params, accessToken, accessTokenSecret, dataCallback) {
-
-        var options = {
-            type: type,
-            params: params,
-            accessToken: accessToken,
-            accessTokenSecret: accessTokenSecret,
-            dataCallback: dataCallback
-        };
-
-        return twitter.getTimeline(
-            self.options,
-            options
-        );
-    };
-
-    this.twitter.statuses = function(type, params, accessToken, accessTokenSecret) {
-
-        var options = {
-            type: type,
-            params: params,
-            accessToken: accessToken,
-            accessTokenSecret: accessTokenSecret
-        };
-
-        return twitter.statuses(
-            self.options,
-            options
-        );
-    };
-
 };
 
+
+Nocial.prototype.twitter = function(){
+
+    var self = this;
+
+    return {
+        getTimeline: function(type, params, accessToken, accessTokenSecret) {
+
+            var options = {
+                type: type,
+                params: params,
+                accessToken: accessToken,
+                accessTokenSecret: accessTokenSecret
+            };
+
+            return twitter.getTimeline(
+                self.options,
+                options
+            );
+        },
+        getStream: function(type, params, accessToken, accessTokenSecret, dataCallback) {
+
+            var options = {
+                type: type,
+                params: params,
+                accessToken: accessToken,
+                accessTokenSecret: accessTokenSecret,
+                dataCallback: dataCallback
+            };
+
+            return twitter.getTimeline(
+                self.options,
+                options
+            );
+        },
+        statuses: function(type, params, accessToken, accessTokenSecret) {
+
+            var options = {
+                type: type,
+                params: params,
+                accessToken: accessToken,
+                accessTokenSecret: accessTokenSecret
+            };
+
+            return twitter.statuses(
+                self.options,
+                options
+            );
+        },
+        search: function(type, params, accessToken, accessTokenSecret) {
+
+            var options = {
+                type: type,
+                params: params,
+                accessToken: accessToken,
+                accessTokenSecret: accessTokenSecret
+            };
+
+            return twitter.search(
+                self.options,
+                options
+            );
+        }
+    };
+};
 
 
 defaultInstance = new Nocial();
