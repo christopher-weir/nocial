@@ -41,18 +41,24 @@ var Nocial = function() {
 };
 
 
-Nocial.prototype.twitter = function(){
+Nocial.prototype.twitter = function( _tokens ){
 
     var self = this;
+    var tokens = _tokens;
+
+    if (!tokens) {
+        // todo handle error
+        console.error('tokens needed');
+    }
 
     return {
-        getTimeline: function(type, params, accessToken, accessTokenSecret) {
+        getTimeline: function( type, params ) {
 
             var options = {
                 type: type,
                 params: params,
-                accessToken: accessToken,
-                accessTokenSecret: accessTokenSecret
+                accessToken: tokens.accessToken,
+                accessTokenSecret: tokens.accessTokenSecret
             };
 
             return twitter.getTimeline(
@@ -60,13 +66,13 @@ Nocial.prototype.twitter = function(){
                 options
             );
         },
-        getStream: function(type, params, accessToken, accessTokenSecret, dataCallback) {
+        getStream: function(type, params, dataCallback) {
 
             var options = {
                 type: type,
                 params: params,
-                accessToken: accessToken,
-                accessTokenSecret: accessTokenSecret,
+                accessToken: tokens.accessToken,
+                accessTokenSecret: tokens.accessTokenSecret,
                 dataCallback: dataCallback
             };
 
@@ -75,13 +81,13 @@ Nocial.prototype.twitter = function(){
                 options
             );
         },
-        statuses: function(type, params, accessToken, accessTokenSecret) {
+        statuses: function(type, params) {
 
             var options = {
                 type: type,
                 params: params,
-                accessToken: accessToken,
-                accessTokenSecret: accessTokenSecret
+                accessToken: tokens.accessToken,
+                accessTokenSecret: tokens.accessTokenSecret
             };
 
             return twitter.statuses(
@@ -89,13 +95,13 @@ Nocial.prototype.twitter = function(){
                 options
             );
         },
-        search: function(type, params, accessToken, accessTokenSecret) {
+        search: function(type, params) {
 
             var options = {
                 type: type,
                 params: params,
-                accessToken: accessToken,
-                accessTokenSecret: accessTokenSecret
+                accessToken: tokens.accessToken,
+                accessTokenSecret: tokens.accessTokenSecret
             };
 
             return twitter.search(
