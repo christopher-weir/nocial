@@ -1,64 +1,46 @@
 'use strict';
 
 var querystring = require('querystring');
+var oauth       = require('./_oauth.js');
+var findType    = require('../utils/twitter/find-type');
 
-var oauth = require('./_oauth.js');
 
-module.exports = function( nocial, options ) {
+
+module.exports = function( _type, _nocial, _params ) {
 
     return new Promise(function(_resolve, _reject) {
 
-        var type = options.type.toLowerCase();
+        var type = _type.toLowerCase();
         var url = '';
         var errorMessage = '';
 
-        switch (type) {
-            case 'home_timeline':
-            case 'home':
-                url = 'home_timeline';
-                break;
-            case 'mentions_timeline':
-            case 'mentions':
-                url = 'mentions_timeline';
-                break;
-            case 'user_timeline':
-            case 'user':
-                if (!options.params.user_id && !options.params.screen_name) {
+        // check params options
 
-                    errorMessage = 'Always specify either an user_id or screen_name when requesting a user timeline.';
-                    _reject({
-                        message: errorMessage,
-                        error: new Error(errorMessage)
-                    });
-                    return false;
-                }
-                url = 'user_timeline';
-                break;
-            case 'retweets_of_me':
-            case 'retweets':
-                url = 'retweets_of_me';
-                break;
-            default:
+        // if (!_params.params.user_id && !_params.params.screen_name) {
+        //
+        //     errorMessage = 'Always specify either an user_id or screen_name when requesting a user timeline.';
+        //     _reject({
+        //         message: errorMessage,
+        //         error: new Error(errorMessage)
+        //     });
+        //     return false;
+        // }
 
-                errorMessage = 'Please specify an existing type.';
-                _reject({
-                    message: errorMessage,
-                    error: new Error(errorMessage)
-                });
-                return false;
+        try {
+            url = findType( _type );
+        } catch ( error ) {
+            _reject(error);
+            return false;
         }
 
-        oauth( nocial ).get(
-            nocial.twitter.baseUrl + 'statuses/' + url + '.json?' + querystring.stringify(options.params),
-            options.accessToken,
-            options.accessTokenSecret,
+
+        oauth( _nocial ).get(
+            _nocial.twitter.baseUrl + 'statuses/' + url + '.json?' + querystring.stringify(_params.params),
+            _params.accessToken,
+            _params.accessTokenSecret,
             function(error, data, response) {
                 if (error) {
-                    errorMessage = 'There was an error';
-                    _reject({
-                        message: errorMessage,
-                        error: new Error(error)
-                    });
+                    _reject( 'There was an error: ' + error );
                 } else {
                     try {
                         _resolve({
@@ -66,11 +48,7 @@ module.exports = function( nocial, options ) {
                             response: response
                         });
                     } catch (e) {
-                        errorMessage = 'There was an error parsing the data';
-                        _reject({
-                            message: errorMessage,
-                            error: new Error(e)
-                        });
+                        _reject( 'There was an error parsing the data: '+ e );
                     }
                 }
             }

@@ -44,71 +44,59 @@ var Nocial = function() {
 Nocial.prototype.twitter = function( _tokens ){
 
     var self = this;
-    var tokens = _tokens;
-
-    if (!tokens) {
-        // todo handle error
-        console.error('tokens needed');
-    }
 
     return {
-        getTimeline: function( type, params ) {
-
-            var options = {
-                type: type,
-                params: params,
-                accessToken: tokens.accessToken,
-                accessTokenSecret: tokens.accessTokenSecret
-            };
+        getTimeline: function( _type, _params ) {
 
             return twitter.getTimeline(
+                _type,
                 self.options,
-                options
-            );
-        },
-        getStream: function(type, params, dataCallback) {
-
-            var options = {
-                type: type,
-                params: params,
-                accessToken: tokens.accessToken,
-                accessTokenSecret: tokens.accessTokenSecret,
-                dataCallback: dataCallback
-            };
-
-            return twitter.getTimeline(
-                self.options,
-                options
-            );
-        },
-        statuses: function(type, params) {
-
-            var options = {
-                type: type,
-                params: params,
-                accessToken: tokens.accessToken,
-                accessTokenSecret: tokens.accessTokenSecret
-            };
-
-            return twitter.statuses(
-                self.options,
-                options
-            );
-        },
-        search: function(type, params) {
-
-            var options = {
-                type: type,
-                params: params,
-                accessToken: tokens.accessToken,
-                accessTokenSecret: tokens.accessTokenSecret
-            };
-
-            return twitter.search(
-                self.options,
-                options
+                utils.helpers.extend( _tokens, _params || {})
             );
         }
+        // getStream: function(type, params, dataCallback) {
+        //
+        //     var options = {
+        //         type: type,
+        //         params: params,
+        //         accessToken: tokens.accessToken,
+        //         accessTokenSecret: tokens.accessTokenSecret,
+        //         dataCallback: dataCallback
+        //     };
+        //
+        //     return twitter.getTimeline(
+        //         self.options,
+        //         options
+        //     );
+        // },
+        // statuses: function(type, params) {
+        //
+        //     var options = {
+        //         type: type,
+        //         params: params,
+        //         accessToken: tokens.accessToken,
+        //         accessTokenSecret: tokens.accessTokenSecret
+        //     };
+        //
+        //     return twitter.statuses(
+        //         self.options,
+        //         options
+        //     );
+        // },
+        // search: function(type, params) {
+        //
+        //     var options = {
+        //         type: type,
+        //         params: params,
+        //         accessToken: tokens.accessToken,
+        //         accessTokenSecret: tokens.accessTokenSecret
+        //     };
+        //
+        //     return twitter.search(
+        //         self.options,
+        //         options
+        //     );
+        // }
     };
 };
 
