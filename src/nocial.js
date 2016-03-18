@@ -44,60 +44,18 @@ var Nocial = function() {
 Nocial.prototype.twitter = function( _tokens ){
 
     var self = this;
+    var methods = {};
 
-    return {
-        getTimeline: function( _type, _params ) {
+    methods.getTimeline = function( _type, _params ) {
 
-            return twitter.getTimeline(
-                _type,
-                self.options,
-                utils.helpers.extend( _tokens, _params || {})
-            );
-        }
-        // getStream: function(type, params, dataCallback) {
-        //
-        //     var options = {
-        //         type: type,
-        //         params: params,
-        //         accessToken: tokens.accessToken,
-        //         accessTokenSecret: tokens.accessTokenSecret,
-        //         dataCallback: dataCallback
-        //     };
-        //
-        //     return twitter.getTimeline(
-        //         self.options,
-        //         options
-        //     );
-        // },
-        // statuses: function(type, params) {
-        //
-        //     var options = {
-        //         type: type,
-        //         params: params,
-        //         accessToken: tokens.accessToken,
-        //         accessTokenSecret: tokens.accessTokenSecret
-        //     };
-        //
-        //     return twitter.statuses(
-        //         self.options,
-        //         options
-        //     );
-        // },
-        // search: function(type, params) {
-        //
-        //     var options = {
-        //         type: type,
-        //         params: params,
-        //         accessToken: tokens.accessToken,
-        //         accessTokenSecret: tokens.accessTokenSecret
-        //     };
-        //
-        //     return twitter.search(
-        //         self.options,
-        //         options
-        //     );
-        // }
+        return twitter.getTimeline(
+            _type,
+            self.options,
+            utils.helpers.extend( _tokens, _params || {})
+        );
     };
+
+    return methods;
 };
 
 
