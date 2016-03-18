@@ -3,6 +3,7 @@
 var querystring = require('querystring');
 var oauth       = require('./_oauth.js');
 var findType    = require('../utils/twitter/find-type');
+var utils = require('../utils');
 
 
 
@@ -13,6 +14,16 @@ module.exports = function( _type, _nocial, _params ) {
         var type = _type.toLowerCase();
         var url = '';
         var errorMessage = '';
+        var params = _params;
+
+
+        // check tokens
+        try {
+            params = utils.helpers.validateParams.twitter( _params );
+        } catch (e) {
+            _reject(e);
+            return false;
+        }
 
         // check params options
 
