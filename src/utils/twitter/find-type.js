@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = function( type ){
+module.exports = function( _type, _params ){
 
     var url = '';
 
-    switch (type) {
+    switch ( _type ) {
         case 'home_timeline':
         case 'home':
             url = 'home_timeline';
@@ -15,6 +15,9 @@ module.exports = function( type ){
             break;
         case 'user_timeline':
         case 'user':
+            if (!_params.user_id && !_params.screen_name) {
+                throw new Error('Always specify either an user_id or screen_name when requesting a user timeline.');
+            }
             url = 'user_timeline';
             break;
         case 'retweets_of_me':

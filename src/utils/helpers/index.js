@@ -5,4 +5,4 @@ exports.each                        = require('./each');
 exports.isArray                     = require('./is-array');
 exports.isObject                    = require('./is-object');
 exports.validateOptions             = require('./validate-options');
-exports.validateParams              = require('./validate-params');
+exports.validateTokens              = require('./validate-tokens');

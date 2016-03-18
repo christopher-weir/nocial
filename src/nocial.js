@@ -44,12 +44,19 @@ Nocial.prototype.twitter = function( _tokens ){
     var self = this;
     var methods = {};
 
+    methods.getOAuthRequestToken = function(){
+        return twitter.getOAuthRequestToken(
+            self.options
+        );
+    };
+
+
     methods.getTimeline = function( _type, _params ) {
-        //console.log(self.options);
         return twitter.getTimeline(
             _type,
             self.options,
-            utils.helpers.extend( _tokens, _params || {})
+            _tokens,
+            _params
         );
     };
 

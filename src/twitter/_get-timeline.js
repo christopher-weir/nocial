@@ -7,48 +7,32 @@ var utils = require('../utils');
 
 
 
-module.exports = function( _type, _nocial, _params ) {
+module.exports = function( _type, _nocial, _tokens, _params ) {
 
     return new Promise(function(_resolve, _reject) {
 
         var type = _type.toLowerCase();
         var url = '';
         var errorMessage = '';
-        var params = _params;
+        var tokens = null;
 
 
         // check tokens
         try {
-            params = utils.helpers.validateParams.twitter( _params );
+
+            tokens = utils.helpers.validateTokens.twitter( _tokens );
+            url = findType( _type );
+
         } catch (e) {
             _reject(e);
             return false;
         }
 
-        // check params options
-
-        // if (!_params.params.user_id && !_params.params.screen_name) {
-        //
-        //     errorMessage = 'Always specify either an user_id or screen_name when requesting a user timeline.';
-        //     _reject({
-        //         message: errorMessage,
-        //         error: new Error(errorMessage)
-        //     });
-        //     return false;
-        // }
-
-        try {
-            url = findType( _type );
-        } catch ( error ) {
-            _reject(error);
-            return false;
-        }
-
 
         oauth( _nocial ).get(
-            _nocial.twitter.baseUrl + 'statuses/' + url + '.json?' + querystring.stringify(_params.params),
-            _params.accessToken,
-            _params.accessTokenSecret,
+            _nocial.twitter.baseUrl + 'statuses/' + url + '.json?' + querystring.stringify(_params),
+            tokens.token,
+            tokens.secret,
             function(error, data, response) {
                 if (error) {
                     _reject( 'There was an error: ' + error );
