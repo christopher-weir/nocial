@@ -33,10 +33,8 @@ var Nocial = function() {
     this.options = defaultOptions;
 
     this.init = function(_opts) {
-
         // set the options
-        self.options = utils.helpers.extend(defaultOptions, _opts || {});
-
+        self.options.twitter = utils.helpers.extend(self.options.twitter, _opts.twitter || {});
     };
 };
 
@@ -47,7 +45,7 @@ Nocial.prototype.twitter = function( _tokens ){
     var methods = {};
 
     methods.getTimeline = function( _type, _params ) {
-
+        //console.log(self.options);
         return twitter.getTimeline(
             _type,
             self.options,
@@ -60,6 +58,6 @@ Nocial.prototype.twitter = function( _tokens ){
 
 
 defaultInstance = new Nocial();
-exports.init = defaultInstance.init;
+exports.init    = defaultInstance.init;
 exports.options = defaultInstance.options;
 exports.twitter = defaultInstance.twitter;

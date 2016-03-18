@@ -2,7 +2,7 @@
 
 exports.twitter = function( _tokens ) {
 
-    if( !_tokens.key ){
+    if( !_tokens.token ){
         throw new Error('Please specify the users twitter token.');
     }
     else if( !_tokens.secret ){
